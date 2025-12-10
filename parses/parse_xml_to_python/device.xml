@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NetworkDeviceConfig>
+    <Device>
+        <Hostname>Router01</Hostname>
+        <Location>DataCenter1</Location>
+        <Vendor>Cisco</Vendor>
+        <Model>ISR4451-X</Model>
+        <OSVersion>IOS-XE 17.9.3</OSVersion>
+    </Device>
+
+    <Interfaces>
+        <Interface>
+            <Name>GigabitEthernet0/0</Name>
+            <Description>WAN Link</Description>
+            <IPAddress>203.0.113.1</IPAddress>
+            <SubnetMask>255.255.255.252</SubnetMask>
+            <Status>up</Status>
+        </Interface>
+        <Interface>
+            <Name>GigabitEthernet0/1</Name>
+            <Description>LAN Segment</Description>
+            <IPAddress>192.168.1.1</IPAddress>
+            <SubnetMask>255.255.255.0</SubnetMask>
+            <Status>up</Status>
+        </Interface>
+    </Interfaces>
+
+    <Routing>
+        <StaticRoutes>
+            <Route>
+                <Destination>0.0.0.0</Destination>
+                <Mask>0.0.0.0</Mask>
+                <NextHop>203.0.113.2</NextHop>
+            </Route>
+        </StaticRoutes>
+        <OSPF>
+            <ProcessID>1</ProcessID>
+            <RouterID>1.1.1.1</RouterID>
+            <Networks>
+                <Network>
+                    <IP>192.168.1.0</IP>
+                    <Wildcard>0.0.0.255</Wildcard>
+                    <Area>0</Area>
+                </Network>
+            </Networks>
+        </OSPF>
+    </Routing>
+</NetworkDeviceConfig>

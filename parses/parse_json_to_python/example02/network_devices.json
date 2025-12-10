@@ -1,0 +1,34 @@
+{
+  "devices": [
+    {
+      "hostname": "R1",
+      "ip_address": "192.168.1.1",
+      "device_type": "router",
+      "location": "Data Center A",
+      "interfaces": [
+        { "name": "GigabitEthernet0/0", "ip": "192.168.1.1", "status": "up" },
+        { "name": "GigabitEthernet0/1", "ip": "10.1.1.1", "status": "down" }
+      ]
+    },
+    {
+      "hostname": "SW1",
+      "ip_address": "192.168.1.2",
+      "device_type": "switch",
+      "location": "Branch Office B",
+      "interfaces": [
+        { "name": "FastEthernet0/1", "ip": "N/A", "status": "up" },
+        { "name": "FastEthernet0/2", "ip": "N/A", "status": "up" }
+      ]
+    },
+    {
+      "hostname": "FW1",
+      "ip_address": "192.168.1.254",
+      "device_type": "firewall",
+      "location": "HQ",
+      "interfaces": [
+        { "name": "eth0", "ip": "203.0.113.1", "status": "up" },
+        { "name": "eth1", "ip": "10.0.0.1", "status": "up" }
+      ]
+    }
+  ]
+}

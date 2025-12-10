@@ -1,0 +1,25 @@
+devices:
+  - name: CoreRouter1
+    type: router
+    ip: 192.168.0.1
+    location: Data Center 1
+    interfaces:
+      - name: GigabitEthernet0/0
+        ip: 192.168.0.2
+        status: up
+      - name: GigabitEthernet0/1
+        ip: 10.1.1.1
+        status: down
+
+  - name: AccessSwitch1
+    type: switch
+    ip: 192.168.0.10
+    location: Building A - Floor 2
+    interfaces:
+      - name: FastEthernet0/1
+        ip: 192.168.0.11
+        status: up
+      - name: FastEthernet0/2
+        ip: 192.168.0.12
+        status: up
+

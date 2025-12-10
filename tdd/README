@@ -1,0 +1,10 @@
+To execute a main file:
+python3 main.py
+
+To execute a pytest validation:
+pytest + script_name
+pytest pytest_test_port_validator.py
+
+To execute a unittest validation:
+python3 + script_name
+python3 test_port_number_validator.py

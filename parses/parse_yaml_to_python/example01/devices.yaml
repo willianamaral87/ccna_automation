@@ -1,0 +1,32 @@
+NetworkDeviceConfig:
+  Device:
+    Hostname: Router01
+    Location: DataCenter1
+    Vendor: Cisco
+    Model: ISR4451-X
+    OSVersion: IOS-XE 17.9.3
+
+  Interfaces:
+    - Name: GigabitEthernet0/0
+      Description: WAN Link
+      IPAddress: 203.0.113.1
+      SubnetMask: 255.255.255.252
+      Status: up
+    - Name: GigabitEthernet0/1
+      Description: LAN Segment
+      IPAddress: 192.168.1.1
+      SubnetMask: 255.255.255.0
+      Status: up
+
+  Routing:
+    StaticRoutes:
+      - Destination: 0.0.0.0
+        Mask: 0.0.0.0
+        NextHop: 203.0.113.2
+    OSPF:
+      ProcessID: 1
+      RouterID: 1.1.1.1
+      Networks:
+        - IP: 192.168.1.0
+          Wildcard: 0.0.0.255
+          Area: 0

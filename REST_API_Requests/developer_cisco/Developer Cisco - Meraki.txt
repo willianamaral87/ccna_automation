@@ -1,0 +1,315 @@
+# DEVELOPER CISCO #
+
+Access the Developer Cisco:
+https://devnetsandbox.cisco.com/DevNet
+
+Launch: Meraki Small Business and Enterprise
+
+Create a personal account and give admin permissions
+
+Create a API Key
+
+## Returns the list of organization associated with the API key:
+
+{{baseUrl}}/organizations
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X GET "https://api.meraki.com/api/v1/organizations" -s | jq
+  
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X GET "https://api.meraki.com/api/v1/organizations" -s | jq
+  
+- s : silent mode
+jq : nice format and easy to read
+
+id fied: it is the organization identifier
+
+id organization: 803362
+
+##########################################################################
+
+## List all Networks associated with organizationId:
+
+{{baseUrl}}/organizations/:organizationId/networks
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X GET "https://api.meraki.com/api/v1/organizations/803362/networks" -s | jq
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X GET "https://api.meraki.com/api/v1/organizations/803362/networks" -s | jq
+  
+network id: 
+L_711568741124547161
+
+##########################################################################
+
+## Obtain list of VLANs configured on specific network:
+
+{{baseUrl}}/networks/:networkId/appliance/vlans
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X GET \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X GET "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+  
+  
+##########################################################################
+
+## Create vlan 10:
+
+{{baseUrl}}/networks/:networkId/appliance/vlans
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data '{
+    "id": 10,
+    "name": "Student VLAN",
+    "subnet": "192.168.10.0/24",
+    "applianceIp": "192.168.10.1"
+  }' \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X POST --data '{"id": 10,"name": "Student VLAN", "subnet": "192.168.10.0/24", "applianceIp": "192.168.10.1" }' "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+  
+  
+###################
+  
+## Create vlan 20:
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data '{
+    "id": 20,
+    "name": "Student VLAN",
+    "subnet": "192.168.20.0/24",
+    "applianceIp": "192.168.20.1"
+  }' \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+  
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X POST --data '{  "id": 21,"name": "Student VLAN 21","subnet": "192.168.21.0/24","applianceIp": "192.168.21.1"}' "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans" -s | jq
+  
+##########################################################################
+
+## PUT - Modify resources in a more complete way:
+
+{{baseUrl}}/networks/:networkId/appliance/vlans/:vlanid
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X PUT \
+  --data '{
+    "name": "LAB VLAN Updated",
+    "subnet": "192.168.20.0/24",
+    "applianceIp": "192.168.20.1"
+  }' \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+  
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X PUT --data '{"name": "LAB VLAN Updated 2","subnet": "192.168.20.0/24","applianceIp": "192.168.20.1"}' "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+    
+###################
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X PUT \
+  --data '{
+    "name": "LAB VLAN",
+    "subnet": "192.168.20.0/24",
+    "applianceIp": "192.168.20.1"
+  }' \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+  
+##########################################################################
+
+## PATCH - modify just some resouces, don't all resourses.
+
+#### For Patch, Meraki implementation allow us to use PUT
+
+{{baseUrl}}/networks/:networkId/appliance/vlans/:vlanid
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X PUT \
+  --data '{
+    "name": "LAB VLAN no internet access"
+  }' \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+  
+
+curl -L -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" -H "Content-Type: application/json" -X PUT --data '{"name": "LAB VLAN no ACCESS"}' "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+  
+  
+##########################################################################
+
+DELETE: 
+
+{{baseUrl}}/networks/:networkId/appliance/vlans/:vlanid
+
+curl -L \
+  -H "X-Cisco-Meraki-API-Key: 5815f488a2d559fdc5a5911d08bd0189e97e261d" \
+  -H "Content-Type: application/json" \
+  -X DELETE \
+  "https://api.meraki.com/api/v1/networks/L_711568741124547161/appliance/vlans/20" -s | jq
+  
+##########################################################################
+################################# PYTHON #################################
+##########################################################################
+
+File: Meraki_API_GET.py
+
+import requests
+from pprint import pprint
+import secrets
+
+url = f"https://api.meraki.com/api/v1/networks/{secrets.NETWORK_ID}/appliance/vlans"
+
+headers = {
+    "X-Cisco-Meraki-API-Key": secrets.API_KEY,
+    "Content-Type": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    pprint(response.json())
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+	
+##########################################################################
+
+File: Meraki_API_POST.py
+
+import requests
+from pprint import pprint
+import secrets
+
+url = f"https://api.meraki.com/api/v1/networks/{secrets.NETWORK_ID}/appliance/vlans"
+
+headers = {
+    "X-Cisco-Meraki-API-Key": secrets.API_KEY,
+    "Content-Type": "application/json"
+}
+
+payload = {
+    "id": 40,
+    "name": "Lab VLAN 40",
+    "subnet": "192.168.40.0/24",
+    "applianceIp": "192.168.40.1"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
+if response.status_code in [200, 201]:
+    pprint(response.json())
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+
+##########################################################################
+
+Update the entire object 
+File: Meraki_API_PUT.py
+
+import requests
+from pprint import pprint
+import secrets
+
+VLAN_ID = 40
+url = f"https://api.meraki.com/api/v1/networks/{secrets.NETWORK_ID}/appliance/vlans/{VLAN_ID}"
+
+headers = {
+    "X-Cisco-Meraki-API-Key": secrets.API_KEY,
+    "Content-Type": "application/json"
+}
+
+payload = {
+    "name": "Lab VLAN 40 Updated",
+    "subnet": "192.168.40.0/24",
+    "applianceIp": "192.168.40.1"
+}
+
+response = requests.put(url, headers=headers, json=payload)
+
+if response.status_code == 200:
+    pprint(response.json())
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+ 
+##########################################################################
+
+Update only what we need / partial update:
+
+File: Meraki_API_PATCH.py
+
+import requests
+from pprint import pprint
+import secrets
+
+VLAN_ID = 40
+url = f"https://api.meraki.com/api/v1/networks/{secrets.NETWORK_ID}/appliance/vlans/{VLAN_ID}"
+
+headers = {
+    "X-Cisco-Meraki-API-Key": secrets.API_KEY,
+    "Content-Type": "application/json"
+}
+
+payload = {
+    "name": "Lab VLAN 40 Patched"
+}
+
+response = requests.put(url, headers=headers, json=payload)
+
+if response.status_code == 200:
+    pprint(response.json())
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+
+##########################################################################
+
+DELETE:
+
+File: Meraki_API_DELETE.py
+
+import requests
+from pprint import pprint
+import secrets
+
+VLAN_ID = 40
+
+url = f"https://api.meraki.com/api/v1/networks/{secrets.NETWORK_ID}/appliance/vlans/{VLAN_ID}"
+
+headers = {
+    "X-Cisco-Meraki-API-Key": secrets.API_KEY,
+    "Content-Type": "application/json"
+}
+
+response = requests.delete(url, headers=headers)
+
+if response.status_code == 204:
+    print(f"VLAN {VLAN_ID} deleted successfully.")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
+
+
+##########################################################################
+################################ POSTMAN #################################
+##########################################################################
+
+Check attached files.
+
+Source: 
+https://www.youtube.com/watch?v=CsLuvhepqes&t=248s
